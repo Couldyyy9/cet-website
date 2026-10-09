@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -18,10 +22,41 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
+          cache: npm
+
+      # 本仓库的 package-lock.json 是用国内镜像（npmmirror）装的，runner 上换回官方源
+      - name: Point lockfile back to the official registry
+        run: sed -i 's#https://registry.npmmirror.com#https://registry.npmjs.org#g' package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      # 部署地址自动推导，不需要手动加仓库变量：
+      #   项目站 https://<用户名>.github.io/<仓库名>/  → 前缀 /<仓库名>
+      #   用户站 https://<用户名>.github.io/          → 前缀留空
+      # 以后换成自己的域名：Settings → Secrets and variables → Actions → Variables
+      #   加 PAGES_BASE_PATH=/        （根路径）
+      #   加 PAGES_SITE_URL=https://你的域名
+      - name: Resolve deployment URL
+        run: |
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+          REPO="${GITHUB_REPOSITORY#*/}"
+          if [ "$REPO" = "${OWNER}.github.io" ]; then
+            BASE=""
+          else
+            BASE="/$REPO"
+          fi
+          if [ -n "${{ vars.PAGES_BASE_PATH }}" ]; then
+            BASE="${{ vars.PAGES_BASE_PATH }}"
+          fi
+          SITE="https://${OWNER}.github.io${BASE}"
+          if [ -n "${{ vars.PAGES_SITE_URL }}" ]; then
+            SITE="${{ vars.PAGES_SITE_URL }}"
+          fi
+          echo "PAGES_BASE_PATH=$BASE" >> "$GITHUB_ENV"
+          echo "PAGES_SITE_URL=$SITE" >> "$GITHUB_ENV"
+          echo "部署地址：$SITE（路径前缀：${BASE:-空}）"
 
       - name: Build static site
         run: npm run build
@@ -31,4 +66,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
-          cname: www.cettong.cn
+          # 绑了自己的域名时，取消下面这行的注释并改成你的域名
+          # （同时要删掉 public/CNAME，否则它会覆盖这里的设置）
+          # cname: example.com
+
