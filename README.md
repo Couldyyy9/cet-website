@@ -1,4 +1,4 @@
-# CET通 (cettong.cn)
+# CET通 · 四六级真题（在线做题改进版）
 
 > 一个完全免费、开源的四六级英语考试复习网站
 > 海量真题 · 模拟考试 · 智能错题本 · 一次过四六级
@@ -7,7 +7,48 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 
-🌐 官网：<https://cettong.cn>
+🌐 本项目线上地址：<https://couldyyy9.github.io/webbbb/>（GitHub Pages 项目站，部署见 [DEPLOY-GITHUB.md](./DEPLOY-GITHUB.md)）
+🌐 原始项目：<https://cettong.cn>
+
+## 🆕 本版新增：在线做题 + 错题本（本地改进版）
+
+在原始站点（真题 PDF 下载）的基础上新增了两个功能，依旧是**纯静态导出、无后端、无数据库**：
+
+| 功能 | 地址 | 说明 |
+| --- | --- | --- |
+| 在线做题 | `/practice` | 24 套四六级真题（2024 年 6 月 – 2025 年 12 月，共 1119 道客观题）在线作答：听力（含 MP3 播放）、选词填空、长篇匹配、仔细阅读；带答题卡、标记、计时、交卷自动判分（客观题 710 分制估分）与逐题解析 |
+| 错题本 | `/mistakes` | 交卷后自动收录错题，可按级别 / 题型 / 掌握状态筛选，支持标记「已掌握」、移除、跳回原题、重做全卷 |
+
+- **数据存储**：全部存在浏览器 `localStorage`（前缀 `cet-practice:` —— 错题 `mistakes:v1`、做题记录 `history:v1`、作答进度 `progress:v1`），不上传服务器；清除浏览器数据会一并清除。
+- **题库来源**：脚本从真题 PDF 的文字层提取题目，并解析卷尾 `KEYS` 答案速查表得到答案（`tools/build_bank.py` → `tools/export_bank.py`），产物在 `public/bank/`（`manifest.json` + `<level>_<id>.json`）。
+- **覆盖范围**：只收录有文字层且带答案表的 2024 年 6 月起共 24 套（四级 / 六级各 12 套）。2019–2023 年的卷子是扫描版、卷面没有答案表，因此不做在线判分，页面上会如实说明。`*_3` 套在原仓库里只有阅读部分，题库也只有第 26–55 题。
+- **判分规则**：只判客观题（听力 25 题 + 阅读 30 题）；写作与翻译为主观题，不计入自动判分。
+
+### 本地运行（静态版）
+
+```bash
+npm install                 # 安装依赖（网络受限时加 --registry=https://registry.npmmirror.com）
+npm run dev                 # 开发模式：http://localhost:3000
+
+npm run build               # 构建静态站点（产出 out/：静态 HTML + 题库 JSON + 真题资源）
+node serve-static.cjs 3000  # 零依赖静态服务器：clean URL、Range 请求、0.0.0.0 监听
+```
+
+Windows 下直接双击 `start-site.cmd` 也可以（缺少 `out/` 时会自动先执行构建）。
+
+### 题库再生成（可选）
+
+`tools/` 保留了生成题库的 Python 脚本：`extract_all_text.py`（抽取 PDF 文字层）→ `build_bank.py`（解析题目与答案）→ `export_bank.py`（导出 JSON）→ `validate_bank.py`（校验残留噪声）。脚本内的绝对路径需按本机情况调整。
+
+### 部署（GitHub Pages 项目站）
+
+部署在 `https://couldyyy9.github.io/webbbb/`，靠 `.github/workflows/deploy.yml` 自动构建并发布到 `gh-pages` 分支。
+
+- **子路径前缀自动推导**：CI 里 `Resolve deployment URL` 这一步按仓库名算出 `PAGES_BASE_PATH=/webbbb` 与 `PAGES_SITE_URL`，所以仓库里**不需要配置任何变量**。本地构建默认是根路径（`http://localhost:3000`）。
+- **想换成自己的域名**：在仓库 Variables 里加 `PAGES_BASE_PATH=/` 与 `PAGES_SITE_URL=https://你的域名`，再重新跑一次 Action（静态产物里的路径前缀是构建时写死的）。
+- **统计与广告默认关闭**：原站的 GA / AdSense ID 属于原作者，已改成环境变量开关（`NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_ADSENSE_CLIENT`），不设就完全不加载；`public/CNAME`、`public/ads.txt` 也已删除。
+
+详细步骤、Pages 设置与常见坑见 [DEPLOY-GITHUB.md](./DEPLOY-GITHUB.md)。
 
 ## ✨ 特色
 
@@ -19,6 +60,9 @@
 - 🆓 **永久免费**：所有功能对所有用户开放，**无套路、无广告、无会员**
 
 ## 🛠 技术栈
+
+> 说明：本改进版的代码是**纯静态 Next.js**（`output: "export"`），仓库里没有 `prisma/`、API 路由或 `.env.example`，
+> 下面列出的数据库 / 鉴权 / Vercel 流程属于旧版说明，实际不需要配置。
 
 - **框架**：[Next.js 16](https://nextjs.org) (App Router) + React 19
 - **样式**：TailwindCSS 4
