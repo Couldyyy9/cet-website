@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://couldyyy9.github.io/cet-website
+Sitemap: https://couldyyy9.github.io/cet-website/sitemap.xml
