@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 本地自测（题库/存储/headless 浏览器脚本，含编译产物与题库副本，不入库）
+/.banktest/

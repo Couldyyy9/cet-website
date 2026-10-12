@@ -18,6 +18,8 @@ interface ExamDetailProps {
   testPdf: string;
   answerPdf: string;
   audioMp3: string | null;
+  /** 若该卷已收录在线题库，则显示「在线做题」入口 */
+  practice?: { href: string; total: number; listening: number } | null;
 }
 
 // ─── Helpers ─────────────────────────────────────────────
@@ -78,6 +80,7 @@ export default function ExamDetail({
   testPdf,
   answerPdf,
   audioMp3,
+  practice,
 }: ExamDetailProps) {
   const listHref = level === "cet4" ? "/library/cet4" : "/library/cet6";
   const levelName = level === "cet4" ? "四级" : "六级";
@@ -123,6 +126,31 @@ export default function ExamDetail({
 
         {/* ── 主体内容 ── */}
         <div className="space-y-8">
+          {/* ▸ 在线做题入口 */}
+          {practice && (
+            <section className="rounded-3xl border border-primary/30 bg-gradient-to-br from-primary-soft/80 to-white dark:to-slate-900 overflow-hidden shadow-md">
+              <div className="flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary text-white shadow-lg ring-4 ring-primary/20">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-lg font-bold">在线做题</h2>
+                  <p className="text-xs text-muted">
+                    共 {practice.total} 道客观题（听力 {practice.listening} 题 + 阅读 {practice.total - practice.listening} 题）
+                    · 在线作答 · 交卷自动判分 · 错题自动收录到错题本
+                  </p>
+                </div>
+                <Link
+                  href={practice.href}
+                  className="btn-press inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-primary-hover active:scale-[0.97]"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  开始做题
+                </Link>
+              </div>
+            </section>
+          )}
+
           {/* ▸ 听力音频 */}
           {audioMp3 && audioDlName && (
             <AudioCard

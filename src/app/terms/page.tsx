@@ -53,7 +53,7 @@ export default function TermsPage() {
 
         <h2 className="text-xl font-bold mt-8 mb-3">7. 联系方式</h2>
         <p className="text-muted leading-relaxed">
-          如有疑问请联系微信：coscoscosx，或发邮件至 hushuhushuyuyu@gmail.com。
+          如有疑问，欢迎通过项目仓库的 Issues 反馈：github.com/Couldyyy9/cet-website/issues。
         </p>
       </div>
     </div>

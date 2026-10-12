@@ -6,6 +6,11 @@ import { Footer } from "@/components/layout/footer";
 import { LiquidBackground } from "@/components/liquid-background";
 import { APP_NAME, APP_URL } from "@/lib/const";
 
+// 统计 / 广告默认关闭：原来的 GA 与 AdSense ID 都属于原站作者，
+// 想给自己的站加统计就在部署环境里设 NEXT_PUBLIC_GA_ID / NEXT_PUBLIC_ADSENSE_CLIENT。
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "";
+
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
@@ -17,7 +22,7 @@ export const metadata: Metadata = {
   authors: [{ name: APP_NAME }],
   creator: APP_NAME,
   other: {
-    "google-adsense-account": "ca-pub-5246729298526511",
+    ...(ADSENSE_CLIENT ? { "google-adsense-account": ADSENSE_CLIENT } : {}),
   },
   openGraph: {
     type: "website",
@@ -84,38 +89,43 @@ export default function RootLayout({
             __html: `document.documentElement.classList.add('js')`,
           }}
         />
-        <Script
-          id="google-adsense-bootstrap"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function () {
-              if (window.location.origin !== 'https://www.cettong.cn') return;
-              if (document.querySelector('script[data-cettong-adsense]')) return;
+        {ADSENSE_CLIENT ? (
+          <Script
+            id="adsense-bootstrap"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function () {
+              if (document.querySelector('script[data-adsense]')) return;
               var script = document.createElement('script');
               script.async = true;
               script.crossOrigin = 'anonymous';
-              script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5246729298526511';
-              script.setAttribute('data-cettong-adsense', 'true');
+              script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}';
+              script.setAttribute('data-adsense', 'true');
               document.head.appendChild(script);
             })();`,
-          }}
-        />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-M3T5MQTB1F"
-          strategy="afterInteractive"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+            }}
+          />
+        ) : null}
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-M3T5MQTB1F');
+              gtag('config', '${GA_ID}');
             `,
-          }}
-        />
+              }}
+            />
+          </>
+        ) : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

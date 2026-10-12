@@ -7,7 +7,6 @@ import {
   Sparkles,
   CheckCircle2,
   ArrowRight,
-  Heart,
 } from "lucide-react";
 import { APP_NAME } from "@/lib/const";
 import { Reveal } from "@/components/reveal";
@@ -121,6 +120,44 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ============== 在线做题 ============== */}
+      <section className="py-10">
+        <div className="container mx-auto max-w-5xl px-4">
+          <Reveal>
+            <div className="glass-card overflow-hidden rounded-3xl p-6 sm:p-8">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-primary text-white">
+                  <Sparkles className="h-7 w-7" />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-xl font-bold sm:text-2xl">
+                    在线<span className="text-gradient">做题</span>与错题本
+                  </h2>
+                  <p className="mt-1 text-sm text-muted">
+                    24 套四六级真题（2024 年 6 月 – 2025 年 12 月）支持在线作答：听力音频、选词填空、长篇匹配、仔细阅读，
+                    交卷自动判分，错题自动收录、可标记掌握。
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/practice"
+                    className="btn-press inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white hover:bg-primary-hover"
+                  >
+                    <Sparkles className="h-4 w-4" /> 开始做题
+                  </Link>
+                  <Link
+                    href="/mistakes"
+                    className="rounded-2xl border border-border px-5 py-3 text-sm font-medium text-muted hover:text-foreground"
+                  >
+                    错题本
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ============== 考试级别 ============== */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto max-w-6xl px-4">
@@ -176,58 +213,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============== 关于本站 + 支持作者 ============== */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto max-w-3xl px-4 text-center">
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              关于<span className="text-gradient">本站</span>
-            </h2>
-            <div className="text-muted text-lg space-y-3 max-w-xl mx-auto mb-10">
-              <p>
-                自建的四六级真题下载站。不需要注册，点开就能下。
-              </p>
-              <p>
-                <a href="https://github.com/whoamiARC" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GitHub 完全开源</a>，
-                作者自费承担服务器维护、域名申请等费用。
-              </p>
-            </div>
-
-            {/* 爱发电卡片 */}
-            <a
-              href="https://www.ifdian.net/a/iam_ARC"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-500 via-rose-500 to-orange-500 p-1 shadow-2xl hover:shadow-3xl transition-shadow group"
-            >
-              <div className="bg-white dark:bg-slate-800/95 backdrop-blur rounded-3xl px-10 py-8 md:px-14 md:py-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-pink-100 text-pink-500 mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform">
-                  <Heart className="h-8 w-8" fill="currentColor" />
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-pink-600 mb-2 group-hover:scale-105 transition-transform">
-                  在爱发电支持作者
-                </h3>
-                <p className="text-muted text-lg mb-2">
-                  如果这些真题对你有帮助
-                </p>
-                <p className="text-pink-500 font-semibold text-lg">
-                  请我喝杯咖啡吧 →
-                </p>
-              </div>
-            </a>
-          </Reveal>
-
-          {/* QQ群 */}
-          <Reveal>
-            <div className="mt-10 pt-8 border-t border-border text-center">
-              <p className="text-sm text-muted">
-                🐧 四六级备考交流群：<span className="font-mono text-foreground font-medium">730715477</span>
-              </p>
-              <p className="text-xs text-muted mt-1">欢迎加入，一起交流一起过级</p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
     </div>
   );
 }

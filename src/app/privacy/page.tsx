@@ -63,7 +63,7 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="text-xl font-bold text-foreground mt-8 mb-3">7. 联系我们</h2>
-          <p className="leading-relaxed">如有隐私相关问题，请联系微信：coscoscosx</p>
+          <p className="leading-relaxed">如有隐私相关问题，欢迎通过项目仓库的 Issues 反馈。</p>
         </div>
       </div>
     </div>

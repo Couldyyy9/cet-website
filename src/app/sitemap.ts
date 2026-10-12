@@ -14,11 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/library`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/library/cet4`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${base}/library/cet6`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${base}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/practice`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${base}/mistakes`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
   ];
 
   // 所有真题试卷页面

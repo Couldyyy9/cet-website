@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { APP_NAME } from "@/lib/const";
@@ -10,13 +10,11 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_ITEMS = [
   { href: "/", label: "首页" },
+  { href: "/practice", label: "在线做题" },
   { href: "/library/cet4", label: "四级真题" },
   { href: "/library/cet6", label: "六级真题" },
-  { href: "/about", label: "关于我们" },
-  { href: "/faq", label: "常见问题" },
+  { href: "/mistakes", label: "错题本" },
 ];
-
-const SUPPORT_LINK = { href: "https://www.ifdian.net/a/iam_ARC", label: "❤️ 支持作者" };
 
 export function Header() {
   const pathname = usePathname();
@@ -47,14 +45,6 @@ export function Header() {
               {item.label}
             </Link>
           )})}
-          <a
-            href={SUPPORT_LINK.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-2 text-sm rounded-md text-pink-500 hover:text-pink-600 hover:bg-pink-50 dark:hover:bg-pink-950 transition-colors font-medium"
-          >
-            {SUPPORT_LINK.label}
-          </a>
           <ThemeToggle />
         </nav>
 
@@ -86,15 +76,6 @@ export function Header() {
               {item.label}
             </Link>
           )})}
-          <a
-            href={SUPPORT_LINK.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block px-3 py-2 text-sm rounded-md text-pink-500 hover:bg-pink-50 font-medium flex items-center gap-1"
-          >
-            <Heart className="h-4 w-4" fill="currentColor" />
-            支持作者
-          </a>
           <div className="px-3 py-2">
             <ThemeToggle />
           </div>

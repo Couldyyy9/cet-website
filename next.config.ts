@@ -14,7 +14,7 @@ const basePath = rawBasePath ? "/" + rawBasePath.replace(/^\/+|\/+$/g, "") : "";
  * 站点的对外地址（sitemap / robots / OpenGraph / JSON-LD 用它）。
  * 默认 = 本仓库的 GitHub Pages 项目站地址；以后换自己的域名就设 PAGES_SITE_URL。
  */
-const siteUrl = (process.env.PAGES_SITE_URL ?? "https://couldyyy9.github.io/webbbb").replace(/\/+$/, "");
+const siteUrl = (process.env.PAGES_SITE_URL ?? "https://couldyyy9.github.io/cet-website").replace(/\/+$/, "");
 
 const nextConfig: NextConfig = {
   output: "export",

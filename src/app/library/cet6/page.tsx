@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, FileText, Headphones, ChevronRight } from "lucide-react";
+import { BookOpen, FileText, Headphones, ChevronRight, Sparkles } from "lucide-react";
 import { getExamsByLevel, groupByYear, type ExamPaper } from "@/lib/library";
+import { findBankExam } from "@/lib/bank";
 
 export const metadata: Metadata = {
   title: "六级真题",
@@ -25,6 +26,13 @@ export default function CET6Page() {
           </div>
           <h1 className="text-3xl md:text-5xl font-bold mb-3">英语六级 CET-6</h1>
           <p className="text-muted text-lg">{exams.length} 套真题 · 含试卷 PDF + 答案 + 听力 MP3</p>
+          <Link
+            href="/practice"
+            className="btn-press mt-5 inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-lg hover:bg-primary-hover"
+          >
+            <Sparkles className="h-4 w-4" />
+            在线做题 + 错题本（新）
+          </Link>
         </div>
 
         <div className="space-y-4">
@@ -48,6 +56,7 @@ export default function CET6Page() {
                             <span className="text-xs text-muted flex items-center gap-1"><FileText className="h-3 w-3" />试卷</span>
                             <span className="text-xs text-muted flex items-center gap-1"><FileText className="h-3 w-3" />答案</span>
                             {paper.hasAudio && <span className="text-xs text-green-600 flex items-center gap-1 font-medium"><Headphones className="h-3 w-3" />听力</span>}
+                            {findBankExam("cet6", paper.id) && <span className="text-xs text-primary flex items-center gap-1 font-medium"><Sparkles className="h-3 w-3" />在线做题</span>}
                           </div>
                         </div>
                       </div>

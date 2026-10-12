@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getExamsByLevel, getExam } from "@/lib/library";
+import { findBankExam } from "@/lib/bank";
 import ExamDetail from "@/components/exam-detail";
+import { withBasePath } from "@/lib/base-path";
 
 export const dynamic = "force-static";
 
@@ -21,7 +23,8 @@ export default async function CET4Detail({ params }: { params: Promise<{ testId:
   const exam = getExam("cet4", testId);
   if (!exam) notFound();
 
-  const base = `/library/cet4/${testId}`;
+  const base = withBasePath(`/library/cet4/${testId}`);
+  const bank = findBankExam("cet4", testId);
 
   return (
     <ExamDetail
@@ -31,6 +34,11 @@ export default async function CET4Detail({ params }: { params: Promise<{ testId:
       testPdf={`${base}/test.pdf`}
       answerPdf={`${base}/answer.pdf`}
       audioMp3={exam.hasAudio ? `${base}/listening.mp3` : null}
+      practice={
+        bank
+          ? { href: `/practice/cet4/${testId}`, total: bank.counts.total, listening: bank.counts.listening }
+          : null
+      }
     />
   );
 }
