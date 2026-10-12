@@ -11,6 +11,11 @@ import { APP_NAME, APP_URL } from "@/lib/const";
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "";
 
+// 静态资源前缀：GitHub Pages 项目站部署在 https://<用户>.github.io/<仓库名>/，
+// Next 只会给 next/link 与 /_next/* 自动加前缀，metadata 里的图标/分享图得自己拼。
+const ASSET_PREFIX = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const asset = (pathname: string) => `${ASSET_PREFIX}${pathname}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
@@ -33,7 +38,7 @@ export const metadata: Metadata = {
     description: "完全免费的四六级真题平台：真题 PDF、听力音频、在线做题与错题本，助你一次过级！",
     images: [
       {
-        url: "/og-image.svg",
+        url: asset("/og-image.svg"),
         width: 1200,
         height: 630,
         alt: APP_NAME,
@@ -44,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${APP_NAME} - 四六级真题在线做题`,
     description: "完全免费的四六级真题与在线做题平台",
-    images: ["/og-image.svg"],
+    images: [asset("/og-image.svg")],
   },
   robots: {
     index: true,
@@ -58,10 +63,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.png", type: "image/png" },
+      { url: asset("/favicon.svg"), type: "image/svg+xml" },
+      { url: asset("/favicon.png"), type: "image/png" },
     ],
-    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
+    apple: [{ url: asset("/apple-icon.png"), type: "image/png", sizes: "180x180" }],
   },
 };
 

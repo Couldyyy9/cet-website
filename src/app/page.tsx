@@ -108,7 +108,7 @@ export default function HomePage() {
                   className="glass-card rounded-2xl p-6 text-center"
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#ffcd68]/30 to-[#ffb63d]/15 text-primary-strong-strong mb-3">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#ffcd68]/30 to-[#ffb63d]/15 text-primary-strong mb-3">
                     <s.icon className="h-6 w-6" />
                   </div>
                   <div className="text-2xl font-bold text-gradient mb-1">{s.title}</div>
@@ -196,7 +196,7 @@ export default function HomePage() {
                       {level.items.map((item) => (
                         <li key={item} className="flex items-center gap-2">
                           <CheckCircle2 className={`h-4 w-4 ${
-                            level.color === "indigo" ? "text-primary-strong-strong" : "text-[#c97f06]"
+                            level.color === "indigo" ? "text-primary-strong" : "text-[#c97f06]"
                           }`} />
                           {item}
                         </li>

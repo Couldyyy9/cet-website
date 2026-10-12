@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { APP_NAME } from "@/lib/const";
+import { withBasePath } from "@/lib/base-path";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_ITEMS = [
@@ -24,7 +25,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full glass-strong border-b border-[#ffcd68]/35">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 group">
-          <img src="/logo.svg" alt={APP_NAME} className="h-9 w-9 rounded-lg object-contain transition-transform group-hover:scale-110" />
+          <img src={withBasePath("/logo.svg")} alt={APP_NAME} className="h-9 w-9 rounded-lg object-contain transition-transform group-hover:scale-110" />
           <span className="text-lg font-bold tracking-tight">{APP_NAME}</span>
         </Link>
 
