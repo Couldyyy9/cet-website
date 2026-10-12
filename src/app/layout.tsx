@@ -14,11 +14,11 @@ const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "";
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
-    default: `${APP_NAME} - 英语四六级备考信息平台 | 完全免费`,
+    default: `${APP_NAME} - 四六级真题在线做题 | 完全免费`,
     template: `%s | ${APP_NAME}`,
   },
-  description: "CET通 - 英语四六级备考一站式信息平台。提供考试资讯、备考指导、学习资源。完全免费，无需注册。",
-  keywords: ["英语四级", "英语六级", "CET4", "CET6", "四六级备考", "四六级资讯", "CET通", "免费"],
+  description: "决战四六级 - 四六级真题在线做题平台。93 套历年真题 PDF 与听力音频在线试听，24 套支持在线作答、自动判分与错题本。完全免费，无需注册。",
+  keywords: ["英语四级", "英语六级", "CET4", "CET6", "四六级备考", "四六级真题", "在线做题", "错题本", "决战四六级", "免费"],
   authors: [{ name: APP_NAME }],
   creator: APP_NAME,
   other: {
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     locale: "zh_CN",
     url: APP_URL,
     siteName: APP_NAME,
-    title: `${APP_NAME} - 英语四六级备考信息平台`,
-    description: "完全免费的四六级备考信息平台。考试资讯 + 备考指导，助你一次过级！",
+    title: `${APP_NAME} - 四六级真题在线做题平台`,
+    description: "完全免费的四六级真题平台：真题 PDF、听力音频、在线做题与错题本，助你一次过级！",
     images: [
       {
         url: "/og-image.svg",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${APP_NAME} - 英语四六级备考`,
-    description: "完全免费的四六级备考信息平台",
+    title: `${APP_NAME} - 四六级真题在线做题`,
+    description: "完全免费的四六级真题与在线做题平台",
     images: ["/og-image.svg"],
   },
   robots: {
@@ -58,8 +58,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.png", type: "image/png" },
     ],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
 };
 
@@ -69,7 +71,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: dark)", color: "#191510" },
   ],
 };
 
@@ -81,7 +83,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem("theme");if(t!=="light"){document.documentElement.classList.add("dark")}})()`,
+            __html: `(function(){var t=localStorage.getItem("theme");if(t==="dark"){document.documentElement.classList.add("dark")}})()`,
           }}
         />
         <script
@@ -133,7 +135,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "EducationalOrganization",
               name: APP_NAME,
-              description: "英语四六级备考信息平台",
+              description: "四六级真题与在线做题平台",
               url: APP_URL,
               sameAs: [],
               address: {
@@ -143,7 +145,6 @@ export default function RootLayout({
             }),
           }}
         />
-        <meta name="baidu-site-verification" content="codeva-92mWbQ8zMr" />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground relative">
         <LiquidBackground />

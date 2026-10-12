@@ -3,7 +3,7 @@ import { APP_NAME } from "@/lib/const";
 
 export function Footer() {
   return (
-    <footer className="glass border-t border-white/40 py-10 mt-16">
+    <footer className="glass border-t border-[#ffcd68]/35 py-10 mt-16">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-6">
           <div>

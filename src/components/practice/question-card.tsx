@@ -31,11 +31,11 @@ export function QuestionCard({ q, value, onChange, review, flagged, onToggleFlag
   return (
     <div
       id={anchorId ?? `q${q.no}`}
-      className="scroll-mt-24 rounded-2xl border border-border bg-white p-4 shadow-sm dark:bg-slate-800 sm:p-5"
+      className="scroll-mt-24 rounded-2xl border border-border bg-white p-4 shadow-sm dark:bg-[#211c14] sm:p-5"
     >
       <div className="mb-3 flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
-          <span className="mt-0.5 inline-flex h-7 min-w-7 shrink-0 items-center justify-center rounded-lg bg-primary-soft px-2 text-sm font-semibold text-primary">
+          <span className="mt-0.5 inline-flex h-7 min-w-7 shrink-0 items-center justify-center rounded-lg bg-primary-soft px-2 text-sm font-semibold text-primary-strong">
             {q.no}
           </span>
           <p className="text-[15px] leading-7 text-foreground">
@@ -54,7 +54,7 @@ export function QuestionCard({ q, value, onChange, review, flagged, onToggleFlag
             title={flagged ? "取消标记" : "标记本题"}
             className={cn(
               "rounded-lg p-1.5 transition-colors",
-              flagged ? "text-amber-500 bg-amber-50 dark:bg-amber-950/40" : "text-muted hover:text-amber-500"
+              flagged ? "text-[#e08a00] bg-[#fff6e3] dark:bg-[#3a2a10]/50" : "text-muted hover:text-[#e08a00]"
             )}
           >
             <Flag className="h-4 w-4" fill={flagged ? "currentColor" : "none"} />
@@ -95,10 +95,10 @@ export function QuestionCard({ q, value, onChange, review, flagged, onToggleFlag
                         ? "bg-success text-white"
                         : isWrongPick
                           ? "bg-danger text-white"
-                          : "bg-slate-100 text-muted dark:bg-slate-700"
+                          : "bg-[#fff1d6] text-muted dark:bg-[#3a3122]"
                       : chosen
-                        ? "bg-primary text-white"
-                        : "bg-slate-100 text-muted dark:bg-slate-700"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-[#fff1d6] text-muted dark:bg-[#3a3122]"
                   )}
                 >
                   {letter}

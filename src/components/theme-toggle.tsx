@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
-    const isDark = saved !== "light";
+    const isDark = saved === "dark";
     setDark(isDark);
     document.documentElement.classList.toggle("dark", isDark);
   }, []);
@@ -23,7 +23,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="p-2 rounded-lg text-muted hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+      className="p-2 rounded-lg text-muted hover:text-foreground hover:bg-primary-soft dark:hover:bg-[#2b2418] transition-colors"
       aria-label={dark ? "切换到日间模式" : "切换到夜间模式"}
     >
       {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}

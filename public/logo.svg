@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="决战四六级">
+  <defs>
+    <linearGradient id="logoG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD97D"/>
+      <stop offset="100%" stop-color="#FFB63D"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="13" fill="url(#logoG)"/>
+  <path d="M27.6 7.5 L14.5 26.4 h7.4 L19.4 40.5 L33.5 21.1 h-7.6 Z" fill="#3A2C0A"/>
+</svg>

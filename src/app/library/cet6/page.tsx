@@ -21,14 +21,14 @@ export default function CET6Page() {
       <div className="container mx-auto max-w-5xl px-4">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium mb-4">
-            <BookOpen className="h-4 w-4 text-primary" />
+            <BookOpen className="h-4 w-4 text-primary-strong" />
             <span>历年真题 · 免费下载</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-bold mb-3">英语六级 CET-6</h1>
           <p className="text-muted text-lg">{exams.length} 套真题 · 含试卷 PDF + 答案 + 听力 MP3</p>
           <Link
             href="/practice"
-            className="btn-press mt-5 inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-lg hover:bg-primary-hover"
+            className="btn-press mt-5 inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-lg hover:bg-primary-hover"
           >
             <Sparkles className="h-4 w-4" />
             在线做题 + 错题本（新）
@@ -40,14 +40,14 @@ export default function CET6Page() {
             const papers = byYear.get(year)!;
             papers.sort((a, b) => { if (a.month !== b.month) return b.month - a.month; return a.setLabel.localeCompare(b.setLabel); });
             return (
-              <div key={year} className="bg-white dark:bg-slate-800 rounded-2xl border border-border overflow-hidden">
-                <div className="bg-slate-50 dark:bg-slate-800/50 px-5 py-3 border-b border-border flex items-center justify-between">
+              <div key={year} className="bg-white dark:bg-[#211c14] rounded-2xl border border-border overflow-hidden">
+                <div className="bg-[#fffaf0] dark:bg-[#211c14]/50 px-5 py-3 border-b border-border flex items-center justify-between">
                   <h3 className="font-bold text-lg">{year} 年</h3>
                   <span className="text-xs text-muted">{papers.length} 套</span>
                 </div>
                 <div className="divide-y divide-border">
                   {papers.map((paper) => (
-                    <Link key={paper.id} href={`/library/cet6/${paper.id}`} className="flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 dark:bg-slate-800/50 transition-colors group">
+                    <Link key={paper.id} href={`/library/cet6/${paper.id}`} className="flex items-center justify-between px-5 py-4 hover:bg-[#fffaf0] dark:hover:bg-[#2b2418]/50 dark:bg-[#211c14]/50 transition-colors group">
                       <div className="flex items-center gap-4">
                         <div className="w-2 h-2 rounded-full bg-primary" />
                         <div>
@@ -55,12 +55,12 @@ export default function CET6Page() {
                           <div className="flex items-center gap-3 mt-0.5">
                             <span className="text-xs text-muted flex items-center gap-1"><FileText className="h-3 w-3" />试卷</span>
                             <span className="text-xs text-muted flex items-center gap-1"><FileText className="h-3 w-3" />答案</span>
-                            {paper.hasAudio && <span className="text-xs text-green-600 flex items-center gap-1 font-medium"><Headphones className="h-3 w-3" />听力</span>}
-                            {findBankExam("cet6", paper.id) && <span className="text-xs text-primary flex items-center gap-1 font-medium"><Sparkles className="h-3 w-3" />在线做题</span>}
+                            {paper.hasAudio && <span className="text-xs text-[#a8700f] flex items-center gap-1 font-medium"><Headphones className="h-3 w-3" />听力</span>}
+                            {findBankExam("cet6", paper.id) && <span className="text-xs text-primary-strong flex items-center gap-1 font-medium"><Sparkles className="h-3 w-3" />在线做题</span>}
                           </div>
                         </div>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-muted group-hover:text-primary transition-colors group-hover:translate-x-0.5" />
+                      <ChevronRight className="h-5 w-5 text-muted group-hover:text-primary-strong transition-colors group-hover:translate-x-0.5" />
                     </Link>
                   ))}
                 </div>

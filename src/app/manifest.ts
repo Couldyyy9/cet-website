@@ -7,11 +7,11 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: APP_NAME,
     short_name: APP_NAME,
-    description: "英语四六级备考一站式平台",
+    description: "四六级真题 · 在线做题 · 错题本",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
-    theme_color: "#2563eb",
+    theme_color: "#ffcd68",
     icons: [
       {
         src: "/favicon.svg",

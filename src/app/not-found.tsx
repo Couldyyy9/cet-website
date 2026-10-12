@@ -10,7 +10,7 @@ export default function NotFound() {
         <p className="text-muted mb-6">你访问的页面不存在或已被移除</p>
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-hover"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary-hover"
         >
           <Home className="h-4 w-4" /> 回到首页
         </Link>

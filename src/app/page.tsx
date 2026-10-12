@@ -40,16 +40,16 @@ export default function HomePage() {
       {/* ============== Hero ============== */}
       <section className="relative pt-20 md:pt-28 pb-16 md:pb-24">
         <div
-          className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-indigo-400/30 blur-3xl animate-blob"
+          className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-[#FFCD68]/60 blur-3xl animate-blob"
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute top-32 -right-20 h-80 w-80 rounded-full bg-pink-400/25 blur-3xl animate-blob"
+          className="pointer-events-none absolute top-32 -right-20 h-80 w-80 rounded-full bg-[#FFB63D]/35 blur-3xl animate-blob"
           style={{ animationDelay: "-4s" }}
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute top-80 left-1/2 h-64 w-64 rounded-full bg-purple-400/25 blur-3xl animate-blob"
+          className="pointer-events-none absolute top-80 left-1/2 h-64 w-64 rounded-full bg-[#FFD97D]/50 blur-3xl animate-blob"
           style={{ animationDelay: "-8s" }}
           aria-hidden
         />
@@ -57,7 +57,7 @@ export default function HomePage() {
         <div className="container mx-auto max-w-6xl px-4 text-center relative">
           <Reveal>
             <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium mb-6 shadow-sm">
-              <Sparkles className="h-4 w-4 text-primary" />
+              <Sparkles className="h-4 w-4 text-primary-strong" />
               <span className="text-gradient">无需注册 · 完全免费 · 直接下载</span>
             </div>
           </Reveal>
@@ -73,7 +73,7 @@ export default function HomePage() {
             <p className="text-lg md:text-xl text-muted max-w-2xl mx-auto mb-10">
               收录 2019-2025 年全部四六级真题
               <br />
-              <span className="text-primary font-semibold">试卷 PDF + 答案 + 听力 MP3，点开即下</span>
+              <span className="text-primary-strong font-semibold">试卷 PDF + 答案 + 听力 MP3，点开即下</span>
             </p>
           </Reveal>
 
@@ -81,7 +81,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-12">
               <Link
                 href="/library/cet4"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 btn-press transition-all"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#ffd97d] via-[#ffcd68] to-[#ffb63d] text-[#3a2c0a] font-semibold rounded-xl shadow-lg shadow-[#ffcd68]/50 hover:shadow-xl hover:shadow-[#ffcd68]/70 btn-press transition-all"
               >
                 打开真题库
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -108,7 +108,7 @@ export default function HomePage() {
                   className="glass-card rounded-2xl p-6 text-center"
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 text-primary mb-3">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#ffcd68]/30 to-[#ffb63d]/15 text-primary-strong-strong mb-3">
                     <s.icon className="h-6 w-6" />
                   </div>
                   <div className="text-2xl font-bold text-gradient mb-1">{s.title}</div>
@@ -126,7 +126,7 @@ export default function HomePage() {
           <Reveal>
             <div className="glass-card overflow-hidden rounded-3xl p-6 sm:p-8">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-primary text-white">
+                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
                   <Sparkles className="h-7 w-7" />
                 </div>
                 <div className="flex-1">
@@ -141,7 +141,7 @@ export default function HomePage() {
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
                     href="/practice"
-                    className="btn-press inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-white hover:bg-primary-hover"
+                    className="btn-press inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
                   >
                     <Sparkles className="h-4 w-4" /> 开始做题
                   </Link>
@@ -175,34 +175,34 @@ export default function HomePage() {
               <Reveal key={level.name} delay={Math.min(idx + 1, 5) as 0 | 1 | 2 | 3 | 4 | 5}>
                 <Link
                   href={`/library/${level.color === "indigo" ? "cet4" : "cet6"}`}
-                  className="relative block overflow-hidden rounded-3xl glass-card p-8 hover:border-indigo-300 group transition-all"
+                  className="relative block overflow-hidden rounded-3xl glass-card p-8 hover:border-[#ffcd68] group transition-all"
                 >
-                  <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-indigo-500/15 blur-3xl group-hover:scale-150 transition-transform duration-700" />
-                  <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-purple-500/10 blur-2xl" />
+                  <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-[#FFCD68]/40 blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                  <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-[#FFB63D]/25 blur-2xl" />
                   <div className="relative">
                     <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${
                       level.color === "indigo"
-                        ? "from-indigo-500 to-blue-500"
-                        : "from-purple-500 to-pink-500"
-                    } text-white mb-5 shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3`}>
+                        ? "from-[#ffd97d] to-[#ffb63d]"
+                        : "from-[#ffcd68] to-[#ff9f2e]"
+                    } text-[#3a2c0a] mb-5 shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3`}>
                       <BookOpen className="h-8 w-8" />
                     </div>
                     <div className="flex items-center gap-3 mb-2">
                       <h3 className="text-2xl font-bold">{level.name}</h3>
-                      <span className="px-2 py-0.5 bg-primary-soft text-primary text-xs font-medium rounded-full">{level.count}</span>
+                      <span className="px-2 py-0.5 bg-primary-soft text-primary-strong text-xs font-medium rounded-full">{level.count}</span>
                     </div>
                     <p className="text-muted mb-5">{level.desc}</p>
                     <ul className="space-y-2 text-sm">
                       {level.items.map((item) => (
                         <li key={item} className="flex items-center gap-2">
                           <CheckCircle2 className={`h-4 w-4 ${
-                            level.color === "indigo" ? "text-indigo-500" : "text-purple-500"
+                            level.color === "indigo" ? "text-primary-strong-strong" : "text-[#c97f06]"
                           }`} />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-6 inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
+                    <div className="mt-6 inline-flex items-center gap-2 text-primary-strong font-semibold group-hover:gap-3 transition-all">
                       查看全部 <ArrowRight className="h-4 w-4" />
                     </div>
                   </div>

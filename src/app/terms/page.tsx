@@ -26,7 +26,7 @@ export default function TermsPage() {
 
         <h2 className="text-xl font-bold mt-8 mb-3">3. 知识产权</h2>
         <p className="text-muted leading-relaxed">
-          本平台的源代码遵循 <a href="https://opensource.org/licenses/MIT" className="text-primary">MIT 协议</a> 开源，
+          本平台的源代码遵循 <a href="https://opensource.org/licenses/MIT" className="text-primary-strong">MIT 协议</a> 开源，
           欢迎学习、修改、分发。
         </p>
         <p className="text-muted leading-relaxed mt-2">

@@ -58,14 +58,14 @@ export default function PracticeHome() {
               "rounded-xl border px-4 py-2 text-left transition-colors",
               level === l.value
                 ? "border-primary bg-primary-soft text-foreground"
-                : "border-border bg-white text-muted hover:border-primary/50 dark:bg-slate-800"
+                : "border-border bg-white text-muted hover:border-primary/50 dark:bg-[#211c14]"
             )}
           >
             <span className="block text-sm font-semibold">{l.label}</span>
             <span className="block text-xs text-muted">{l.desc}</span>
           </button>
         ))}
-        <Link href="/mistakes" className="ml-auto text-sm font-medium text-primary hover:underline">
+        <Link href="/mistakes" className="ml-auto text-sm font-medium text-primary-strong hover:underline">
           查看错题本（{stats.mistakes}）→
         </Link>
       </div>
@@ -76,7 +76,7 @@ export default function PracticeHome() {
           return (
             <div
               key={examKey(e.level, e.id)}
-              className="flex flex-col rounded-2xl border border-border bg-white p-4 transition-shadow hover:shadow-md dark:bg-slate-800"
+              className="flex flex-col rounded-2xl border border-border bg-white p-4 transition-shadow hover:shadow-md dark:bg-[#211c14]"
             >
               <div className="flex items-start justify-between gap-2">
                 <div>
@@ -87,12 +87,12 @@ export default function PracticeHome() {
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   {e.hasAudio && (
-                    <span className="flex items-center gap-1 rounded-md bg-primary-soft px-1.5 py-0.5 text-[11px] text-primary">
+                    <span className="flex items-center gap-1 rounded-md bg-primary-soft px-1.5 py-0.5 text-[11px] text-primary-strong">
                       <AudioLines className="h-3 w-3" /> 含音频
                     </span>
                   )}
                   {e.readingOnly && (
-                    <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[11px] text-amber-700 dark:bg-amber-950/50 dark:text-amber-400">
+                    <span className="rounded-md bg-[#fff1d6] px-1.5 py-0.5 text-[11px] text-[#a8700f] dark:bg-[#3a2a10]/60 dark:text-[#ffd97d]">
                       阅读部分
                     </span>
                   )}
@@ -100,7 +100,7 @@ export default function PracticeHome() {
               </div>
 
               {a && (
-                <p className="mt-3 rounded-lg bg-slate-50 px-2 py-1.5 text-xs text-muted dark:bg-slate-900">
+                <p className="mt-3 rounded-lg bg-[#fffaf0] px-2 py-1.5 text-xs text-muted dark:bg-[#191510]">
                   上次：{a.correct}/{a.total} 题 · {a.score}/{a.max} 分
                   {" · "}
                   {new Date(a.at).toLocaleDateString("zh-CN")}
@@ -111,8 +111,10 @@ export default function PracticeHome() {
                 <Link
                   href={`/practice/${e.level}/${e.id}`}
                   className={cn(
-                    "flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-white",
-                    a ? "bg-slate-500 hover:bg-slate-600" : "bg-primary hover:bg-primary-hover"
+                    "flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium",
+                    a
+                      ? "border border-[#ffcd68]/60 bg-[#fff6e3] text-[#a8700f] hover:bg-[#ffedc4]"
+                      : "bg-primary text-primary-foreground hover:bg-primary-hover"
                   )}
                 >
                   {a ? <RotateCw className="h-4 w-4" /> : <Play className="h-4 w-4" />}
@@ -131,7 +133,7 @@ export default function PracticeHome() {
         })}
       </div>
 
-      <p className="rounded-2xl border border-border bg-white p-4 text-xs leading-6 text-muted dark:bg-slate-800">
+      <p className="rounded-2xl border border-border bg-white p-4 text-xs leading-6 text-muted dark:bg-[#211c14]">
         说明：在线题库只收录能可靠提取答案表的试卷（2024 年 6 月起）。2019–2023 年的真题为扫描版、卷面没有答案速查表，
         暂不提供在线判分，仍可在「四级真题 / 六级真题」中下载 PDF 与答案自行练习。所有答题进度与错题记录都保存在本机浏览器
         （localStorage），不上传服务器；清除浏览器数据会一并清除记录。
@@ -142,7 +144,7 @@ export default function PracticeHome() {
 
 function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-white p-3 dark:bg-slate-800">
+    <div className="rounded-2xl border border-border bg-white p-3 dark:bg-[#211c14]">
       <p className="flex items-center gap-1.5 text-xs text-muted">
         {icon}
         {label}

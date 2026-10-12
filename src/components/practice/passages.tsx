@@ -55,7 +55,7 @@ export function ClozePanel({ passage, answers, onPick, review }: { passage: Cloz
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-border bg-white p-4 text-[15px] leading-8 dark:bg-slate-800 sm:p-5">
+      <div className="rounded-2xl border border-border bg-white p-4 text-[15px] leading-8 dark:bg-[#211c14] sm:p-5">
         {tokens.map((tk, i) =>
           tk.t === "text" ? (
             <span key={i}>{tk.v}</span>
@@ -76,7 +76,7 @@ export function ClozePanel({ passage, answers, onPick, review }: { passage: Cloz
         )}
       </div>
 
-      <div className="rounded-2xl border border-border bg-white p-4 dark:bg-slate-800">
+      <div className="rounded-2xl border border-border bg-white p-4 dark:bg-[#211c14]">
         <div className="mb-3 flex items-center justify-between">
           <h3 className="text-sm font-semibold text-foreground">词库（A-O，每个词只用一次）</h3>
           <span className="text-xs text-muted">
@@ -102,7 +102,7 @@ export function ClozePanel({ passage, answers, onPick, review }: { passage: Cloz
                   isAnswer && "border-success bg-success/10"
                 )}
               >
-                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-white">
+                <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground">
                   {letter}
                 </span>
                 <span className="flex-1">{word}</span>
@@ -161,7 +161,7 @@ function Blanker({
         "mx-1 inline-flex h-7 min-w-11 scroll-mt-24 items-center justify-center rounded-lg border px-2 align-middle text-sm font-semibold transition-colors",
         state === "ok" && "border-success bg-success/15 text-success",
         state === "bad" && "border-danger bg-danger/15 text-danger",
-        state === "filled" && "border-primary bg-primary-soft text-primary",
+        state === "filled" && "border-primary bg-primary-soft text-primary-strong",
         state === "empty" && "border-dashed border-slate-300 text-muted hover:border-primary dark:border-slate-600",
         active && "ring-2 ring-primary/50"
       )}
@@ -184,7 +184,7 @@ export function MatchingPanel({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-border bg-white dark:bg-slate-800">
+      <div className="rounded-2xl border border-border bg-white dark:bg-[#211c14]">
         <button
           type="button"
           onClick={() => setOpen(!open)}
@@ -197,7 +197,7 @@ export function MatchingPanel({
           <div className="max-h-[26rem] space-y-3 overflow-y-auto border-t border-border px-4 py-4">
             {letters.map((letter) => (
               <div key={letter} className="flex gap-3">
-                <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary-soft text-xs font-bold text-primary">
+                <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary-soft text-xs font-bold text-primary-strong">
                   {letter}
                 </span>
                 <p className="text-sm leading-7 text-foreground">{normText(passage.paragraphs[letter] ?? "")}</p>
@@ -215,9 +215,9 @@ export function MatchingPanel({
             <div
               key={q.no}
               id={`q${q.no}`}
-              className="flex scroll-mt-24 items-start gap-3 rounded-2xl border border-border bg-white p-4 dark:bg-slate-800"
+              className="flex scroll-mt-24 items-start gap-3 rounded-2xl border border-border bg-white p-4 dark:bg-[#211c14]"
             >
-              <span className="mt-0.5 inline-flex h-7 min-w-7 shrink-0 items-center justify-center rounded-lg bg-primary-soft px-2 text-sm font-semibold text-primary">
+              <span className="mt-0.5 inline-flex h-7 min-w-7 shrink-0 items-center justify-center rounded-lg bg-primary-soft px-2 text-sm font-semibold text-primary-strong">
                 {q.no}
               </span>
               <p className="flex-1 text-sm leading-7 text-foreground">{normText(stripNumber(q.stem))}</p>
@@ -227,7 +227,7 @@ export function MatchingPanel({
                   disabled={!!review}
                   onChange={(e) => onPick(q.no, e.target.value)}
                   className={cn(
-                    "h-9 w-24 rounded-lg border bg-white px-2 text-sm dark:bg-slate-900",
+                    "h-9 w-24 rounded-lg border bg-white px-2 text-sm dark:bg-[#191510]",
                     st ? (st.correct ? "border-success text-success" : "border-danger text-danger") : "border-border"
                   )}
                 >
@@ -257,7 +257,7 @@ export function MatchingPanel({
 export function ReadingPanel({ title, text }: { title: string; text: string }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="rounded-2xl border border-border bg-white dark:bg-slate-800">
+    <div className="rounded-2xl border border-border bg-white dark:bg-[#211c14]">
       <button
         type="button"
         onClick={() => setOpen(!open)}

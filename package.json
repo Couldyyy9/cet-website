@@ -1,5 +1,6 @@
 {
-  "name": "cet-website",
+  "name": "juezhan-cet",
+  "description": "决战四六级 · 四六级真题在线做题与错题本（纯静态 Next.js + GitHub Pages）",
   "version": "0.1.0",
   "private": true,
   "scripts": {

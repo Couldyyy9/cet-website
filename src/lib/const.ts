@@ -1,6 +1,6 @@
 // 业务常量
 
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "CET通";
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "决战四六级";
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://couldyyy9.github.io/cet-website";
 
 // 题目类型

@@ -16,13 +16,13 @@ export default function ContactPage() {
             href="https://github.com/Couldyyy9/cet-website/issues"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white dark:bg-slate-800 rounded-xl border border-border p-6 hover:shadow-md transition-shadow text-center"
+            className="bg-white dark:bg-[#211c14] rounded-xl border border-border p-6 hover:shadow-md transition-shadow text-center"
           >
-            <div className="inline-flex w-12 h-12 rounded-xl bg-blue-100 text-blue-600 items-center justify-center mb-3">
+            <div className="inline-flex w-12 h-12 rounded-xl bg-[#fff6e3] text-[#a8700f] items-center justify-center mb-3">
               <MessageSquare className="h-6 w-6" />
             </div>
             <h3 className="font-semibold mb-1">问题反馈</h3>
-            <p className="text-primary">提交 Issue</p>
+            <p className="text-primary-strong">提交 Issue</p>
             <p className="text-xs text-muted mt-2">题目、题库、页面显示有问题都可以在这里提</p>
           </a>
 
@@ -30,13 +30,13 @@ export default function ContactPage() {
             href="https://github.com/Couldyyy9/cet-website"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white dark:bg-slate-800 rounded-xl border border-border p-6 hover:shadow-md transition-shadow text-center"
+            className="bg-white dark:bg-[#211c14] rounded-xl border border-border p-6 hover:shadow-md transition-shadow text-center"
           >
-            <div className="inline-flex w-12 h-12 rounded-xl bg-amber-100 text-amber-600 items-center justify-center mb-3">
+            <div className="inline-flex w-12 h-12 rounded-xl bg-[#fff1d6] text-[#c97f06] items-center justify-center mb-3">
               <Star className="h-6 w-6" />
             </div>
             <h3 className="font-semibold mb-1">项目主页</h3>
-            <p className="text-primary break-all">github.com/Couldyyy9/cet-website</p>
+            <p className="text-primary-strong break-all">github.com/Couldyyy9/cet-website</p>
             <p className="text-xs text-muted mt-2">源码与更新记录都在这里</p>
           </a>
         </div>

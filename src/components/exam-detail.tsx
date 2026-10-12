@@ -39,35 +39,35 @@ function downloadName(
 // ─── Color themes ────────────────────────────────────────
 
 const themes = {
-  green: {
-    border: "border-green-200 dark:border-green-800",
-    bg: "from-green-50/70 to-emerald-50/70 dark:from-green-950/30 dark:to-emerald-950/30",
-    iconBg: "bg-green-500",
-    iconRing: "ring-green-200 dark:ring-green-800",
-    btn: "bg-green-600 hover:bg-green-700 focus:ring-green-400",
-    textGradient: "from-green-700 to-emerald-600 dark:from-green-400 dark:to-emerald-300",
-    accent: "bg-green-500",
-    softBg: "bg-green-50 dark:bg-green-950/20",
+  gold: {
+    border: "border-[#ffcd68]/60 dark:border-[#8a6f2a]/60",
+    bg: "from-[#fffaf0] to-[#fff3d8] dark:from-[#2a2214]/60 dark:to-[#33280f]/60",
+    iconBg: "bg-[#ffcd68] text-[#3a2c0a]",
+    iconRing: "ring-[#ffcd68]/30 dark:ring-[#8a6f2a]/40",
+    btn: "bg-[#ffcd68] text-[#3a2c0a] hover:bg-[#ffbe3d] focus:ring-[#ffcd68]",
+    textGradient: "from-[#d9930c] to-[#b8790a] dark:from-[#ffd97d] dark:to-[#ffb63d]",
+    accent: "bg-[#ffcd68]",
+    softBg: "bg-[#fff6e3] dark:bg-[#33280f]/40",
   },
-  blue: {
-    border: "border-blue-200 dark:border-blue-800",
-    bg: "from-blue-50/70 to-indigo-50/70 dark:from-blue-950/30 dark:to-indigo-950/30",
-    iconBg: "bg-blue-500",
-    iconRing: "ring-blue-200 dark:ring-blue-800",
-    btn: "bg-blue-600 hover:bg-blue-700 focus:ring-blue-400",
-    textGradient: "from-blue-700 to-indigo-600 dark:from-blue-400 dark:to-indigo-300",
-    accent: "bg-blue-500",
-    softBg: "bg-blue-50 dark:bg-blue-950/20",
+  orange: {
+    border: "border-[#ffb63d]/70 dark:border-[#8a6f2a]/60",
+    bg: "from-[#fff7e6] to-[#ffeec9] dark:from-[#2a2214]/60 dark:to-[#3d2f12]/60",
+    iconBg: "bg-[#ffb63d] text-[#3a2c0a]",
+    iconRing: "ring-[#ffb63d]/35 dark:ring-[#8a6f2a]/40",
+    btn: "bg-[#ffb63d] text-[#3a2c0a] hover:bg-[#f5a623] focus:ring-[#ffb63d]",
+    textGradient: "from-[#c97f06] to-[#a8700f] dark:from-[#ffd97d] dark:to-[#ffb63d]",
+    accent: "bg-[#ffb63d]",
+    softBg: "bg-[#fff3d8] dark:bg-[#3d2f12]/40",
   },
-  amber: {
-    border: "border-amber-200 dark:border-amber-800",
-    bg: "from-amber-50/70 to-orange-50/70 dark:from-amber-950/30 dark:to-orange-950/30",
-    iconBg: "bg-amber-500",
-    iconRing: "ring-amber-200 dark:ring-amber-800",
-    btn: "bg-amber-600 hover:bg-amber-700 focus:ring-amber-400",
-    textGradient: "from-amber-700 to-orange-600 dark:from-amber-400 dark:to-orange-300",
-    accent: "bg-amber-500",
-    softBg: "bg-amber-50 dark:bg-amber-950/20",
+  deep: {
+    border: "border-[#f08c00]/60 dark:border-[#8a5f14]/60",
+    bg: "from-[#fff4e0] to-[#ffe9c9] dark:from-[#2a2214]/60 dark:to-[#3a2a10]/60",
+    iconBg: "bg-[#f08c00] text-white",
+    iconRing: "ring-[#f08c00]/30 dark:ring-[#8a5f14]/40",
+    btn: "bg-[#f08c00] text-white hover:bg-[#d97d00] focus:ring-[#f08c00]",
+    textGradient: "from-[#c46f00] to-[#a15c00] dark:from-[#ffc46b] dark:to-[#ff9f2e]",
+    accent: "bg-[#f08c00]",
+    softBg: "bg-[#fff4e0] dark:bg-[#3a2a10]/40",
   },
 };
 
@@ -97,7 +97,7 @@ export default function ExamDetail({
         {/* ── 返回链接 ── */}
         <Link
           href={listHref}
-          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-primary mb-8 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-primary-strong mb-8 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           返回{levelName}真题列表
@@ -106,11 +106,11 @@ export default function ExamDetail({
         {/* ── 标题区 ── */}
         <header className="mb-10 text-center md:text-left">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-3">
-            <span className="inline-flex items-center gap-1 px-3 py-1 bg-primary-soft text-primary text-xs font-semibold rounded-full">
+            <span className="inline-flex items-center gap-1 px-3 py-1 bg-primary-soft text-primary-strong text-xs font-semibold rounded-full">
               {levelLabel}
             </span>
             {exam.hasAudio && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full">
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-[#fff1d6] text-[#a8700f] dark:bg-[#33280f] dark:text-[#ffd97d] text-xs font-semibold rounded-full">
                 <Headphones className="h-3 w-3" />
                 含听力
               </span>
@@ -130,7 +130,7 @@ export default function ExamDetail({
           {practice && (
             <section className="rounded-3xl border border-primary/30 bg-gradient-to-br from-primary-soft/80 to-white dark:to-slate-900 overflow-hidden shadow-md">
               <div className="flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary text-white shadow-lg ring-4 ring-primary/20">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg ring-4 ring-primary/20">
                   <Sparkles className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
@@ -142,7 +142,7 @@ export default function ExamDetail({
                 </div>
                 <Link
                   href={practice.href}
-                  className="btn-press inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-primary-hover active:scale-[0.97]"
+                  className="btn-press inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg hover:bg-primary-hover active:scale-[0.97]"
                 >
                   <Sparkles className="h-4 w-4" />
                   开始做题
@@ -158,7 +158,7 @@ export default function ExamDetail({
               audioDlName={audioDlName}
               levelName={levelName}
               exam={exam}
-              theme={themes.green}
+              theme={themes.gold}
             />
           )}
 
@@ -169,7 +169,7 @@ export default function ExamDetail({
             exam={exam}
             pdf={testPdf}
             downloadName={testDlName}
-            theme={themes.blue}
+            theme={themes.orange}
           />
 
           {/* ▸ 对称分隔 */}
@@ -182,7 +182,7 @@ export default function ExamDetail({
             exam={exam}
             pdf={answerPdf}
             downloadName={answerDlName}
-            theme={themes.amber}
+            theme={themes.deep}
           />
         </div>
 
@@ -210,7 +210,7 @@ function AudioCard({
   audioDlName: string;
   levelName: string;
   exam: ExamInfo;
-  theme: (typeof themes)["green"];
+  theme: (typeof themes)["gold"];
 }) {
   return (
     <section
@@ -219,7 +219,7 @@ function AudioCard({
       {/* 头部 */}
       <div className={`px-6 py-5 border-b ${theme.border} flex items-center gap-4`}>
         <div
-          className={`flex-shrink-0 w-12 h-12 rounded-2xl ${theme.iconBg} text-white flex items-center justify-center shadow-lg ring-4 ${theme.iconRing}`}
+          className={`flex-shrink-0 w-12 h-12 rounded-2xl ${theme.iconBg} flex items-center justify-center shadow-lg ring-4 ${theme.iconRing}`}
         >
           <Music className="h-6 w-6" />
         </div>
@@ -243,7 +243,7 @@ function AudioCard({
         <a
           href={audioMp3}
           download={audioDlName}
-          className={`inline-flex items-center justify-center gap-2.5 px-6 py-3 ${theme.btn} text-white rounded-2xl text-sm font-semibold transition-all shadow-lg shadow-green-200 dark:shadow-green-900/30 hover:shadow-xl active:scale-[0.97]`}
+          className={`inline-flex items-center justify-center gap-2.5 px-6 py-3 ${theme.btn} rounded-2xl text-sm font-semibold transition-all shadow-lg shadow-[#ffcd68]/45 dark:shadow-black/30 hover:shadow-xl active:scale-[0.97]`}
         >
           <Download className="h-4 w-4" />
           下载 MP3
@@ -271,7 +271,7 @@ function DownloadCard({
   exam: ExamInfo;
   pdf: string;
   downloadName: string;
-  theme: (typeof themes)["blue"];
+  theme: (typeof themes)["orange"];
 }) {
   const isExam = type === "exam";
   const titleLabel = isExam ? "真题试卷" : "答案解析";
@@ -310,8 +310,8 @@ function DownloadCard({
             `}
             style={{
               textShadow: isExam
-                ? "0 2px 4px rgba(37,99,235,0.12)"
-                : "0 2px 4px rgba(217,119,6,0.12)",
+                ? "0 2px 4px rgba(217,147,12,0.16)"
+                : "0 2px 4px rgba(240,140,0,0.18)",
             }}
           >
             {titleLabel}
@@ -339,11 +339,11 @@ function DownloadCard({
           download={downloadName}
           className={`
             inline-flex items-center justify-center gap-3 px-8 py-4
-            ${theme.btn} text-white rounded-2xl
+            ${theme.btn} rounded-2xl
             text-base font-bold
             transition-all shadow-lg active:scale-[0.97]
             hover:shadow-xl
-            ${isExam ? "shadow-blue-200 dark:shadow-blue-900/30" : "shadow-amber-200 dark:shadow-amber-900/30"}
+            ${isExam ? "shadow-[#ffcd68]/45 dark:shadow-black/30" : "shadow-[#f08c00]/30 dark:shadow-black/30"}
           `}
         >
           <Download className="h-5 w-5" />
@@ -366,9 +366,9 @@ function Divider() {
     <div className="flex items-center justify-center gap-3 py-3 select-none">
       <div className="h-px flex-1 bg-border" />
       <div className="flex items-center gap-2">
-        <div className="h-1 w-1 rounded-full bg-slate-300 dark:bg-slate-600" />
-        <div className="h-1.5 w-1.5 rounded-full bg-slate-400 dark:bg-slate-500" />
-        <div className="h-1 w-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+        <div className="h-1 w-1 rounded-full bg-[#ffe9b8] dark:bg-[#4a3d22]" />
+        <div className="h-1.5 w-1.5 rounded-full bg-[#ffcd68] dark:bg-[#8a6f2a]" />
+        <div className="h-1 w-1 rounded-full bg-[#ffe9b8] dark:bg-[#4a3d22]" />
       </div>
       <div className="h-px flex-1 bg-border" />
     </div>

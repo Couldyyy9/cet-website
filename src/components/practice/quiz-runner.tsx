@@ -193,7 +193,7 @@ export default function QuizRunner({ meta }: { meta: ExamMeta }) {
 
   if (!bank) {
     return (
-      <div className="flex items-center justify-center gap-2 rounded-2xl border border-border bg-white p-10 text-sm text-muted dark:bg-slate-800">
+      <div className="flex items-center justify-center gap-2 rounded-2xl border border-border bg-white p-10 text-sm text-muted dark:bg-[#211c14]">
         <Loader2 className="h-4 w-4 animate-spin" /> 正在载入题库…
       </div>
     );
@@ -204,7 +204,7 @@ export default function QuizRunner({ meta }: { meta: ExamMeta }) {
   return (
     <div className="pb-24 lg:pb-0">
       {/* 顶栏 */}
-      <div className="sticky top-16 z-30 -mx-4 mb-4 border-b border-border bg-white/85 px-4 py-2 backdrop-blur dark:bg-slate-900/85">
+      <div className="sticky top-16 z-30 -mx-4 mb-4 border-b border-border bg-white/85 px-4 py-2 backdrop-blur dark:bg-[#191510]/85">
         <div className="container mx-auto flex max-w-7xl items-center gap-3">
           <Link href="/practice" className="rounded-lg p-1.5 text-muted hover:text-foreground" title="返回题库">
             <ArrowLeft className="h-5 w-5" />
@@ -243,7 +243,7 @@ export default function QuizRunner({ meta }: { meta: ExamMeta }) {
             <button
               type="button"
               onClick={submit}
-              className="btn-press hidden items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-hover lg:flex"
+              className="btn-press hidden items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary-hover lg:flex"
             >
               <Send className="h-4 w-4" /> 交卷
             </button>
@@ -280,14 +280,14 @@ export default function QuizRunner({ meta }: { meta: ExamMeta }) {
           ))}
 
           {!graded && (
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-white p-6 dark:bg-slate-800">
+            <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-white p-6 dark:bg-[#211c14]">
               <p className="text-sm text-muted">
                 已答 {answeredCount}/{total} 题。交卷后可以查看得分、逐题解析，错题会自动进入错题本。
               </p>
               <button
                 type="button"
                 onClick={submit}
-                className="btn-press flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 font-medium text-white hover:bg-primary-hover"
+                className="btn-press flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 font-medium text-primary-foreground hover:bg-primary-hover"
               >
                 <Send className="h-4 w-4" /> 交卷并查看结果
               </button>
@@ -377,7 +377,7 @@ function SectionBlock({
       {section.hint && <p className="text-xs text-muted">{section.hint}</p>}
 
       {audioSrc && (
-        <div className="rounded-2xl border border-border bg-white p-4 dark:bg-slate-800">
+        <div className="rounded-2xl border border-border bg-white p-4 dark:bg-[#211c14]">
           <p className="mb-2 text-sm font-medium text-foreground">听力音频（点击播放，可拖动进度条反复听）</p>
           <audio controls preload="none" className="w-full" src={audioSrc} />
         </div>
@@ -463,7 +463,7 @@ function ListeningGroups({
       {groups.map((g, i) => (
         <div key={i} className="space-y-3">
           {g.note && (
-            <p className="rounded-xl bg-primary-soft/60 px-3 py-2 text-xs text-primary">
+            <p className="rounded-xl bg-primary-soft/60 px-3 py-2 text-xs text-primary-strong">
               {g.note.replace(/\.$/, "")}
             </p>
           )}
@@ -509,7 +509,7 @@ function AnswerSheet({
   const pct = bank.questions.length ? Math.round((answered / bank.questions.length) * 100) : 0;
 
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-white p-4 dark:bg-slate-800 lg:sticky lg:top-32">
+    <div className="space-y-4 rounded-2xl border border-border bg-white p-4 dark:bg-[#211c14] lg:sticky lg:top-32">
       <div>
         <div className="mb-1 flex items-center justify-between text-sm">
           <span className="font-semibold text-foreground">答题卡</span>
@@ -517,7 +517,7 @@ function AnswerSheet({
             {answered}/{bank.questions.length}
           </span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700">
+        <div className="h-2 overflow-hidden rounded-full bg-[#fff1d6] dark:bg-[#3a3122]">
           <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${pct}%` }} />
         </div>
         <p className="mt-1 flex items-center gap-1 text-xs text-muted">
@@ -546,11 +546,11 @@ function AnswerSheet({
                           ? "bg-success/15 text-success"
                           : done
                             ? "bg-danger/15 text-danger"
-                            : "bg-slate-100 text-muted dark:bg-slate-700"
+                            : "bg-[#fff1d6] text-muted dark:bg-[#3a3122]"
                         : done
-                          ? "bg-primary text-white"
-                          : "bg-slate-100 text-muted hover:bg-primary-soft dark:bg-slate-700",
-                      flagged.includes(q.no) && "ring-2 ring-amber-400"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-[#fff1d6] text-muted hover:bg-primary-soft dark:bg-[#3a3122]",
+                      flagged.includes(q.no) && "ring-2 ring-[#ffcd68]"
                     )}
                   >
                     {q.no}
@@ -566,7 +566,7 @@ function AnswerSheet({
         <button
           type="button"
           onClick={onSubmit}
-          className="btn-press flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 font-medium text-white hover:bg-primary-hover"
+          className="btn-press flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 font-medium text-primary-foreground hover:bg-primary-hover"
         >
           <Send className="h-4 w-4" /> 交卷
         </button>
@@ -574,7 +574,7 @@ function AnswerSheet({
         <button
           type="button"
           onClick={onRedo}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-border px-4 py-2.5 font-medium text-foreground hover:bg-slate-50 dark:hover:bg-slate-700"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-border px-4 py-2.5 font-medium text-foreground hover:bg-[#fffaf0] dark:hover:bg-[#2b2418]"
         >
           <RotateCcw className="h-4 w-4" /> 重新作答
         </button>
@@ -611,7 +611,7 @@ function ScorePanel({
   return (
     <div className="animate-fade-in-up space-y-4 rounded-2xl border border-primary/30 bg-primary-soft/40 p-5">
       <div className="flex flex-wrap items-center gap-4">
-        <Trophy className="h-8 w-8 text-primary" />
+        <Trophy className="h-8 w-8 text-primary-strong" />
         <div>
           <p className="text-sm text-muted">{meta.level === "cet4" ? "四级" : "六级"} · {meta.title}</p>
           <p className="text-2xl font-bold text-foreground">
@@ -629,7 +629,7 @@ function ScorePanel({
 
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
         {breakdown.bySection.map((s) => (
-          <div key={s.key} className="rounded-xl border border-border bg-white p-3 dark:bg-slate-800">
+          <div key={s.key} className="rounded-xl border border-border bg-white p-3 dark:bg-[#211c14]">
             <p className="text-xs text-muted">{s.label}</p>
             <p className="text-lg font-semibold text-foreground">
               {s.correct}
@@ -646,7 +646,7 @@ function ScorePanel({
         <span className="flex items-center gap-1 text-sm text-foreground">
           <CheckCircle2 className="h-4 w-4 text-success" /> 错题已自动收录到错题本
         </span>
-        <Link href="/mistakes" className="text-sm font-medium text-primary hover:underline">
+        <Link href="/mistakes" className="text-sm font-medium text-primary-strong hover:underline">
           去错题本查看 →
         </Link>
         <button type="button" onClick={onRedo} className="ml-auto text-sm text-muted hover:text-foreground">
@@ -655,7 +655,7 @@ function ScorePanel({
       </div>
 
       {wrong.length > 0 && (
-        <details className="rounded-xl border border-border bg-white p-3 dark:bg-slate-800">
+        <details className="rounded-xl border border-border bg-white p-3 dark:bg-[#211c14]">
           <summary className="cursor-pointer text-sm font-medium text-foreground">
             本次答错/未答的 {wrong.length} 题
           </summary>

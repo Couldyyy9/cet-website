@@ -124,7 +124,7 @@ export default function MistakesBoard() {
           <select
             value={section}
             onChange={(e) => setSection(e.target.value)}
-            className="h-9 rounded-xl border border-border bg-white px-2 text-sm text-foreground dark:bg-slate-800"
+            className="h-9 rounded-xl border border-border bg-white px-2 text-sm text-foreground dark:bg-[#211c14]"
           >
             <option value="all">全部题型</option>
             {SECTIONS.map((s) => (
@@ -146,13 +146,13 @@ export default function MistakesBoard() {
       )}
 
       {mistakes.length === 0 && (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-white p-10 text-center dark:bg-slate-800">
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-white p-10 text-center dark:bg-[#211c14]">
           <BookX className="h-10 w-10 text-muted" />
           <p className="text-foreground">还没有错题记录</p>
           <p className="text-sm text-muted">去「在线做题」完成一套真题，答错的题目会自动出现在这里。</p>
           <Link
             href="/practice"
-            className="btn-press mt-1 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-hover"
+            className="btn-press mt-1 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover"
           >
             开始做题
           </Link>
@@ -166,7 +166,7 @@ export default function MistakesBoard() {
       )}
 
       {!loading && mistakes.length > 0 && rows.length === 0 && (
-        <p className="rounded-2xl border border-border bg-white p-6 text-sm text-muted dark:bg-slate-800">
+        <p className="rounded-2xl border border-border bg-white p-6 text-sm text-muted dark:bg-[#211c14]">
           当前筛选条件下没有错题。
         </p>
       )}
@@ -188,7 +188,7 @@ export default function MistakesBoard() {
               <span className="text-xs text-muted">{g.items.length} 题错题</span>
               <Link
                 href={`/practice/${g.meta.level}/${g.meta.testId}`}
-                className="ml-auto flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                className="ml-auto flex items-center gap-1 text-sm font-medium text-primary-strong hover:underline"
               >
                 <RotateCcw className="h-3.5 w-3.5" /> 重做本卷
               </Link>
@@ -200,7 +200,7 @@ export default function MistakesBoard() {
                 return (
                   <div key={m.key} className="space-y-2">
                     <div className="flex flex-wrap items-center gap-2 pl-1 text-xs text-muted">
-                      <span className="rounded-md bg-slate-100 px-1.5 py-0.5 dark:bg-slate-700">
+                      <span className="rounded-md bg-[#fff1d6] px-1.5 py-0.5 dark:bg-[#3a3122]">
                         {sectionLabelOf(q)}
                       </span>
                       <span>答错 {m.count} 次</span>
@@ -212,7 +212,7 @@ export default function MistakesBoard() {
                         <button
                           type="button"
                           onClick={() => setMastered(m.key, !m.mastered)}
-                          className="flex items-center gap-1 text-primary hover:underline"
+                          className="flex items-center gap-1 text-primary-strong hover:underline"
                         >
                           {m.mastered ? (
                             <>
@@ -241,7 +241,7 @@ export default function MistakesBoard() {
                     </div>
 
                     {context && (
-                      <p className="rounded-xl bg-slate-50 px-3 py-2 text-xs leading-6 text-muted dark:bg-slate-900">
+                      <p className="rounded-xl bg-[#fffaf0] px-3 py-2 text-xs leading-6 text-muted dark:bg-[#191510]">
                         {context}
                       </p>
                     )}
@@ -249,7 +249,7 @@ export default function MistakesBoard() {
                     {q ? (
                       <QuestionCard q={q} value={m.my} review={{ my: m.my, correct: false }} />
                     ) : (
-                      <div className="rounded-2xl border border-border bg-white p-4 text-sm text-muted dark:bg-slate-800">
+                      <div className="rounded-2xl border border-border bg-white p-4 text-sm text-muted dark:bg-[#211c14]">
                         <p className="text-foreground">
                           第 {m.no} 题 · 你的答案 <b className="text-danger">{m.my || "未答"}</b>
                         </p>
@@ -268,7 +268,7 @@ export default function MistakesBoard() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-white p-3 dark:bg-slate-800">
+    <div className="rounded-2xl border border-border bg-white p-3 dark:bg-[#211c14]">
       <p className="text-xs text-muted">{label}</p>
       <p className="mt-1 text-lg font-semibold text-foreground">{value}</p>
     </div>
@@ -285,7 +285,7 @@ function TabGroup({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="flex items-center gap-1 rounded-xl border border-border bg-white p-1 dark:bg-slate-800">
+    <div className="flex items-center gap-1 rounded-xl border border-border bg-white p-1 dark:bg-[#211c14]">
       {tabs.map((t) => (
         <button
           key={t.value}
@@ -293,7 +293,7 @@ function TabGroup({
           onClick={() => onChange(t.value)}
           className={cn(
             "rounded-lg px-3 py-1 text-sm transition-colors",
-            value === t.value ? "bg-primary text-white" : "text-muted hover:text-foreground"
+            value === t.value ? "bg-primary text-primary-foreground" : "text-muted hover:text-foreground"
           )}
         >
           {t.label}
