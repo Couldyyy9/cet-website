@@ -19,15 +19,19 @@ import {
   examKey,
   gradeExam,
   loadExamBank,
+  loadExamExtra,
   sectionsOf,
   type BankQuestion,
   type ExamBank,
+  type ExamExtra,
   type ExamMeta,
+  type QuestionExplain,
   type ScoreBreakdown,
   type SectionDef,
 } from "@/lib/bank";
 import { addAttempt, addMistakes, clearProgress, getProgress, saveProgress } from "@/lib/practice-store";
 import { QuestionCard, type ReviewState } from "@/components/practice/question-card";
+import { TranslationCard, WritingCard } from "@/components/practice/paper-parts";
 import { ClozePanel, MatchingPanel, ReadingPanel } from "@/components/practice/passages";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +49,7 @@ function fmtTime(sec: number): string {
 export default function QuizRunner({ meta }: { meta: ExamMeta }) {
   const id = examKey(meta.level, meta.id);
   const [bank, setBank] = useState<ExamBank | null>(null);
+  const [extra, setExtra] = useState<ExamExtra | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Answers>({});
   const [flagged, setFlagged] = useState<number[]>([]);
@@ -65,6 +70,9 @@ export default function QuizRunner({ meta }: { meta: ExamMeta }) {
       .catch((e: unknown) => {
         if (alive) setError(e instanceof Error ? e.message : String(e));
       });
+    loadExamExtra(meta.level, meta.id).then((x) => {
+      if (alive) setExtra(x);
+    });
     return () => {
       alive = false;
     };
@@ -264,6 +272,8 @@ export default function QuizRunner({ meta }: { meta: ExamMeta }) {
             />
           )}
 
+          {extra?.writing ? <WritingCard data={extra.writing} /> : null}
+
           {sections.map((s) => (
             <SectionBlock
               key={s.key}
@@ -276,8 +286,11 @@ export default function QuizRunner({ meta }: { meta: ExamMeta }) {
               onToggleFlag={toggleFlag}
               audioSrc={s.key === "listening" ? audioSrc : null}
               graded={graded}
+              explains={extra?.explain}
             />
           ))}
+
+          {extra?.translation ? <TranslationCard data={extra.translation} /> : null}
 
           {!graded && (
             <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-white p-6 dark:bg-[#211c14]">
@@ -352,6 +365,7 @@ function SectionBlock({
   onToggleFlag,
   audioSrc,
   graded,
+  explains,
 }: {
   section: SectionDef;
   bank: ExamBank;
@@ -362,6 +376,7 @@ function SectionBlock({
   onToggleFlag: (no: number) => void;
   audioSrc: string | null;
   graded: boolean;
+  explains?: Record<string, QuestionExplain>;
 }) {
   const qs = bank.questions.filter((q) => q.no >= section.from && q.no <= section.to);
   if (!qs.length) return null;
@@ -402,7 +417,17 @@ function SectionBlock({
       )}
 
       {/* 听力：按题组说明分组 */}
-      {section.key === "listening" && <ListeningGroups questions={qs} answers={answers} onPick={onPick} review={review} flagged={flagged} onToggleFlag={onToggleFlag} />}
+      {section.key === "listening" && (
+        <ListeningGroups
+          questions={qs}
+          answers={answers}
+          onPick={onPick}
+          review={review}
+          flagged={flagged}
+          onToggleFlag={onToggleFlag}
+          explains={explains}
+        />
+      )}
 
       {/* 仔细阅读：逐题 */}
       {(section.key === "passage1" || section.key === "passage2") &&
@@ -415,6 +440,7 @@ function SectionBlock({
             review={review?.get(q.no) ?? null}
             flagged={flagged.includes(q.no)}
             onToggleFlag={() => onToggleFlag(q.no)}
+            explain={explains?.[String(q.no)] ?? null}
           />
         ))}
 
@@ -427,6 +453,7 @@ function SectionBlock({
               q={q}
               value={answers[String(q.no)]}
               review={review?.get(q.no) ?? null}
+              explain={explains?.[String(q.no)] ?? null}
             />
           ))}
         </div>
@@ -442,6 +469,7 @@ function ListeningGroups({
   review,
   flagged,
   onToggleFlag,
+  explains,
 }: {
   questions: BankQuestion[];
   answers: Answers;
@@ -449,6 +477,7 @@ function ListeningGroups({
   review: Map<number, ReviewState> | null;
   flagged: number[];
   onToggleFlag: (no: number) => void;
+  explains?: Record<string, QuestionExplain>;
 }) {
   const groups: { note: string; items: BankQuestion[] }[] = [];
   for (const q of questions) {
@@ -476,6 +505,7 @@ function ListeningGroups({
               review={review?.get(q.no) ?? null}
               flagged={flagged.includes(q.no)}
               onToggleFlag={() => onToggleFlag(q.no)}
+              explain={explains?.[String(q.no)] ?? null}
             />
           ))}
         </div>

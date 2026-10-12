@@ -250,3 +250,61 @@ export function loadExamBank(level: string, id: string): Promise<ExamBank> {
 export function sortedOptions(options: Record<string, string>): [string, string][] {
   return Object.entries(options).sort((a, b) => a[0].localeCompare(b[0]));
 }
+
+/* ------------------------------------------------------------------ *
+ * 主观题与逐题解析（写作/翻译题目 + 每题中文翻译和解析）
+ * 数据文件 public/bank/extra/<level>_<id>.json；不存在则整块功能自动隐藏
+ * ------------------------------------------------------------------ */
+
+export interface QuestionExplain {
+  /** 题干英文（OCR 不可靠时可能为空，一般以题库为准） */
+  en?: string;
+  /** 题干中文翻译 */
+  zh?: string;
+  /** 四个选项的中文翻译（A/B/C/D） */
+  options?: Record<string, string>;
+  /** 答案解析 */
+  explain?: string;
+  kind?: string;
+}
+
+export interface PaperWriting {
+  minutes?: number;
+  /** 写作要求（Directions） */
+  directions: string;
+  /** 题目要求以这句话开头 */
+  sentence?: string;
+}
+
+export interface PaperTranslation {
+  minutes?: number;
+  /** 待翻译的中文段落 */
+  text: string;
+}
+
+export interface ExamExtra {
+  level: string;
+  id: string;
+  writing?: PaperWriting;
+  translation?: PaperTranslation;
+  explain?: Record<string, QuestionExplain>;
+}
+
+const extraCache = new Map<string, Promise<ExamExtra | null>>();
+
+export function loadExamExtra(level: string, id: string): Promise<ExamExtra | null> {
+  const key = examKey(level, id);
+  const hit = extraCache.get(key);
+  if (hit) return hit;
+  const p = fetch(withBasePath(`/bank/extra/${key}.json`), { cache: "force-cache" })
+    .then((res) => (res.ok ? (res.json() as Promise<ExamExtra>) : null))
+    .catch(() => null);
+  extraCache.set(key, p);
+  return p;
+}
+
+/** 逐题解析里是否有可展示的内容 */
+export function hasExplain(e?: QuestionExplain | null): boolean {
+  if (!e) return false;
+  return Boolean((e.zh ?? "").trim() || (e.explain ?? "").trim() || Object.keys(e.options ?? {}).length);
+}

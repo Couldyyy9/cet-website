@@ -1,8 +1,8 @@
 "use client";
 
-import { Flag } from "lucide-react";
+import { BookOpenText, ChevronDown, Flag } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { sortedOptions, type BankQuestion } from "@/lib/bank";
+import { hasExplain, sortedOptions, type BankQuestion, type QuestionExplain } from "@/lib/bank";
 
 export function stripNumber(text: string): string {
   return (text || "").replace(/^\s*\d{1,2}\s*[.、]?\s*/, "").trim();
@@ -21,9 +21,11 @@ interface Props {
   flagged?: boolean;
   onToggleFlag?: () => void;
   anchorId?: string;
+  /** 逐题中文翻译与解析（折叠展示） */
+  explain?: QuestionExplain | null;
 }
 
-export function QuestionCard({ q, value, onChange, review, flagged, onToggleFlag, anchorId }: Props) {
+export function QuestionCard({ q, value, onChange, review, flagged, onToggleFlag, anchorId, explain }: Props) {
   const stem = stripNumber(q.stem);
   const isListening = q.part === "listening";
   const options = sortedOptions(q.options);
@@ -128,6 +130,65 @@ export function QuestionCard({ q, value, onChange, review, flagged, onToggleFlag
           )}
         </div>
       )}
+
+      {review && hasExplain(explain) && <ExplainPanel q={q} e={explain!} />}
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * 折叠的「翻译与解析」：题干中文翻译 + 选项中文翻译 + 解析
+ * ------------------------------------------------------------------ */
+
+const TAG = "mr-1.5 inline-block rounded bg-primary-soft px-1.5 py-0.5 text-[11px] font-semibold text-primary-strong align-[1px]";
+
+function ExplainPanel({ q, e }: { q: BankQuestion; e: QuestionExplain }) {
+  const opts = sortedOptions(e.options ?? {});
+  const showOpts = q.kind === "mcq" && opts.length > 0;
+  return (
+    <details className="group mt-3 overflow-hidden rounded-xl border border-border bg-[#fffdf5] dark:bg-[#241d13]">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2.5 text-xs font-semibold text-primary-strong transition-colors hover:bg-primary-soft/60">
+        <span className="inline-flex items-center gap-1.5">
+          <BookOpenText className="h-3.5 w-3.5" />
+          翻译与解析
+        </span>
+        <span className="inline-flex items-center gap-1 text-muted">
+          <span className="group-open:hidden">点击展开</span>
+          <span className="hidden group-open:inline">收起</span>
+          <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+        </span>
+      </summary>
+      <div className="space-y-3 border-t border-border px-3 py-3 text-sm leading-7">
+        {e.zh ? (
+          <p className="text-foreground">
+            <span className={TAG}>题干翻译</span>
+            {e.zh}
+          </p>
+        ) : null}
+
+        {showOpts ? (
+          <div className="text-foreground">
+            <span className={TAG}>选项翻译</span>
+            <ul className="mt-1.5 space-y-1">
+              {opts.map(([letter, text]) => (
+                <li key={letter} className="flex gap-2">
+                  <b className={cn("shrink-0 font-semibold", letter === q.answer ? "text-success" : "text-muted")}>
+                    {letter}.
+                  </b>
+                  <span className={letter === q.answer ? "text-foreground" : "text-muted"}>{text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {e.explain ? (
+          <p className="text-foreground">
+            <span className={TAG}>解析</span>
+            {e.explain}
+          </p>
+        ) : null}
+      </div>
+    </details>
   );
 }

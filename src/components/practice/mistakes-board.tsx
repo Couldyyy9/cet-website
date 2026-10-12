@@ -3,7 +3,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { BookX, Check, ChevronDown, Loader2, RotateCcw, Trash2, Undo2 } from "lucide-react";
-import { SECTIONS, examKey, loadExamBank, type BankQuestion, type ExamBank, type Level } from "@/lib/bank";
+import {
+  SECTIONS,
+  examKey,
+  loadExamBank,
+  loadExamExtra,
+  type BankQuestion,
+  type ExamBank,
+  type ExamExtra,
+  type Level,
+} from "@/lib/bank";
 import {
   clearMistakes,
   removeMistake,
@@ -56,6 +65,7 @@ export default function MistakesBoard() {
   const [status, setStatus] = useState<StatusFilter>("all");
   const [section, setSection] = useState<string>("all");
   const [banks, setBanks] = useState<Record<string, ExamBank | null>>({});
+  const [extras, setExtras] = useState<Record<string, ExamExtra | null>>({});
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
   const requested = useRef<Set<string>>(new Set());
 
@@ -67,6 +77,7 @@ export default function MistakesBoard() {
       loadExamBank(m.level, m.testId)
         .then((b) => setBanks((prev) => ({ ...prev, [key]: b })))
         .catch(() => setBanks((prev) => ({ ...prev, [key]: null })));
+      loadExamExtra(m.level, m.testId).then((x) => setExtras((prev) => ({ ...prev, [key]: x })));
     }
   }, [mistakes]);
 
@@ -76,15 +87,18 @@ export default function MistakesBoard() {
         const key = examKey(m.level, m.testId);
         const bank = banks[key] ?? undefined;
         const q = bank?.questions.find((x) => x.no === m.no);
-        return { m, bank, q, key };
+        return { m, bank, q, key, extra: extras[key] ?? null };
       })
       .filter((r) => (level === "all" ? true : r.m.level === level))
       .filter((r) => (status === "all" ? true : status === "mastered" ? r.m.mastered : !r.m.mastered))
       .filter((r) => (section === "all" ? true : sectionLabelOf(r.q) === section));
-  }, [mistakes, banks, level, status, section]);
+  }, [mistakes, banks, extras, level, status, section]);
 
   const grouped = useMemo(() => {
-    const map = new Map<string, { key: string; m: MistakeRecord; bank?: ExamBank; q?: BankQuestion }[]>();
+    const map = new Map<
+      string,
+      { key: string; m: MistakeRecord; bank?: ExamBank; q?: BankQuestion; extra: ExamExtra | null }[]
+    >();
     for (const r of rows) {
       const list = map.get(r.key) ?? [];
       list.push(r);
@@ -195,7 +209,7 @@ export default function MistakesBoard() {
             </div>
 
             {!isCollapsed &&
-              g.items.map(({ m, bank, q }) => {
+              g.items.map(({ m, bank, q, extra }) => {
                 const context = bank && q?.kind === "cloze" ? clozeContext(bank, q.no) : null;
                 return (
                   <div key={m.key} className="space-y-2">
@@ -247,7 +261,12 @@ export default function MistakesBoard() {
                     )}
 
                     {q ? (
-                      <QuestionCard q={q} value={m.my} review={{ my: m.my, correct: false }} />
+                      <QuestionCard
+                        q={q}
+                        value={m.my}
+                        review={{ my: m.my, correct: false }}
+                        explain={extra?.explain?.[String(m.no)] ?? null}
+                      />
                     ) : (
                       <div className="rounded-2xl border border-border bg-white p-4 text-sm text-muted dark:bg-[#211c14]">
                         <p className="text-foreground">
